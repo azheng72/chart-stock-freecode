@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en" ng-app='app'>
+    <head>
+        <title>Chart-Stock</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/angular/angular.js"></script>
+        <script src="/chart.js/dist/Chart.min.js"></script>
+        <script src="/angular-chart.js/dist/angular-chart.min.js"></script>
+        <script src="/index.controller.js"></script>
+    </head>
+    <body ng-controller='LineCtrl'>
+        <div>
+            <canvas id="line" class="chart chart-line" chart-data="data"
+                chart-labels="labels" chart-series="series" chart-options="options"
+                chart-dataset-override="datasetOverride" chart-click="onClick"
+            </canvas> 
+        </div>
+        
+        <div class="input-group col-xs-6 col-xs-offset-3">
+            <span class="input-group-addon">History Day Length</span> 
+            <input type="text" class="form-control" placeholder="Search for..." ng-model='stock.historyDays'>
+            <span class="input-group-btn">
+            <button class="btn btn-default" type="button" ng-click='refresh()'>Go!</button>
+            </span>
+        </div><!-- /input-group -->
+
+        <div class='navbar navbar-default' style='margin-top:1vh;margin-bottom:1vh'>
+            <div ng-repeat="company in series" class='col-xs-4' style='margin-top:1vh;margin-bottom:1vh'>
+                <div class="input-group">
+                    <span class="input-group-addon" >{{company}}</span>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" ng-click="deleteComany($index)">delete</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="input-group col-xs-12">
+            <span class="input-group-addon">Add Company</span> 
+            <input type="text" class="form-control" placeholder="Input here..." ng-model='stock.add'>
+            <span class="input-group-btn">
+            <button class="btn btn-default" type="button" ng-click='addCompany(stock.add)'>Go!</button>
+            </span>
+        </div><!-- /input-group -->
+        
+    </body>
+</html>
